@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Nuriddin Khudoiberdiev, senior web developer: React, Next.js, TypeScript, Electron.">
+<meta property="og:title" content="Nuriddin Khudoiberdiev"><meta property="og:description" content="Senior web developer: Escuela, real estate ERP, parking systems, banking services."><link rel="alternate" hreflang="ru" href="https://born-kh.github.io/">
+<title>Nuriddin Khudoiberdiev</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;600;800;900&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: single reading column (max 980px). Hero states the thesis, then each project is a row: text on the left, its data flow on the right as a chain of mono chips. Apricot accent (Sughd) used sparingly. */
+:root{
+  --bg:#f3f4f1;       /* cool paper */
+  --surface:#ffffff;
+  --ink:#121a26;
+  --muted:#5d6675;
+  --rule:#dfe2e0;
+  --chip:#eceee9;
+  --accent:#d9702b;   /* apricot */
+  --accent-soft:#fbe7d8;
+  --ok:#2c8a57;
+  --display:"Commissioner", "Helvetica Neue", Arial, sans-serif;
+  --body:"Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10141b; --surface:#171c25; --ink:#e9e7e2; --muted:#98a0ad; --rule:#262d39; --chip:#1f2530;
+    --accent:#f0924f; --accent-soft:#3a2416; --ok:#53c086; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10141b; --surface:#171c25; --ink:#e9e7e2; --muted:#98a0ad; --rule:#262d39; --chip:#1f2530;
+  --accent:#f0924f; --accent-soft:#3a2416; --ok:#53c086; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:980px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:72px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+/* hero */
+.hero{display:flex;flex-direction:column;gap:22px}
+.status{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;font-family:var(--mono);font-size:12.5px;color:var(--muted);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:6px 12px}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 25%,transparent)}
+.name{font-family:var(--display);font-weight:900;font-size:clamp(40px,8.4vw,88px);line-height:.95;letter-spacing:-.035em;margin:0;text-wrap:balance}
+.name span{display:block;color:var(--accent)}
+.lede{font-size:clamp(18px,2.4vw,22px);line-height:1.45;max-width:36ch;margin:0;font-weight:500}
+.meta{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:14.5px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+.links{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:15px;padding:11px 16px;border-radius:10px;border:1.5px solid var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn:hover{border-color:var(--accent)}
+.btn.primary:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.fact{padding:18px 16px 18px 0;display:flex;flex-direction:column;gap:2px;min-width:0}
+.fact+.fact{padding-left:16px;border-left:1px solid var(--rule)}
+.fact b{font-family:var(--display);font-weight:800;font-size:30px;line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.fact span{font-size:13.5px;color:var(--muted)}
+
+/* sections */
+section{display:flex;flex-direction:column;gap:26px}
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:10px}
+h2{font-family:var(--display);font-weight:800;font-size:28px;letter-spacing:-.02em;margin:0}
+.sh p{margin:0;color:var(--muted);font-size:14px}
+
+/* projects */
+.proj{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;padding-block:8px 30px;border-bottom:1px solid var(--rule)}
+.proj:last-child{border-bottom:0}
+.p-text{display:flex;flex-direction:column;gap:12px;min-width:0}
+.domain{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:0}
+h3{font-family:var(--display);font-weight:800;font-size:26px;line-height:1.1;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.p-text p{margin:0;max-width:60ch}
+.p-text ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:15px}
+.p-text li::marker{color:var(--accent)}
+.stack{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:12px;background:var(--chip);border-radius:6px;padding:3px 8px;white-space:nowrap}
+.plink{font-size:14px;font-weight:600;color:var(--accent);text-decoration:none}
+.plink:hover{text-decoration:underline}
+
+.p-flow{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px;align-self:start;min-width:0}
+.flow-cap{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0}
+.flow{display:flex;flex-direction:column;gap:0}
+.node{display:flex;flex-direction:column;gap:1px;border:1.5px solid var(--ink);border-radius:9px;padding:8px 11px;background:var(--bg)}
+.node b{font-size:14px;font-weight:600}
+.node small{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.node.hl{border-color:var(--accent);background:var(--accent-soft)}
+.arr{font-family:var(--mono);font-size:11.5px;color:var(--muted);padding:5px 0 5px 14px;border-left:1.5px dashed var(--muted);margin-left:16px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+/* more projects */
+.more{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.mini{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.mini h4{margin:0;font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.01em}
+.mini p{margin:0;font-size:14px;color:var(--muted)}
+.mini .stack{margin-top:auto;padding-top:4px}
+
+/* experience */
+.exp{display:grid;gap:0}
+.job{display:grid;grid-template-columns:170px minmax(0,1fr);gap:20px;padding-block:18px;border-bottom:1px solid var(--rule)}
+.job:last-child{border-bottom:0}
+.when{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.when b{display:block;color:var(--ink);font-weight:600}
+.job h4{margin:0;font-family:var(--display);font-weight:800;font-size:19px}
+.job .co{color:var(--accent);font-weight:600}
+.job p{margin:6px 0 0;font-size:15px;max-width:62ch}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+.skills h4{margin:0 0 8px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.skills ul{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:15px}
+
+/* contact */
+.contact{background:var(--ink);color:var(--bg);border-radius:18px;padding:32px;display:flex;flex-direction:column;gap:16px}
+.contact h2{color:var(--bg);font-size:clamp(26px,4vw,38px);max-width:22ch;text-wrap:balance}
+.contact p{margin:0;max-width:52ch;opacity:.85}
+.contact .btn{border-color:var(--bg);color:var(--bg)}
+.contact .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.contact .btn:hover{border-color:var(--accent)}
+.foot{font-size:13px;color:var(--muted);text-align:left}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-family:var(--mono);font-size:clamp(16px,2.6vw,20px);user-select:all;-webkit-user-select:all}
+.mail span{word-break:break-all}
+.copy{font-family:var(--body);font-size:13px;font-weight:600;border:1.5px solid var(--bg);background:transparent;color:var(--bg);border-radius:8px;padding:6px 10px;cursor:pointer;user-select:none;-webkit-user-select:none}
+.copy:hover{border-color:var(--accent)}
+
+@media (max-width:760px){
+  .wrap{gap:56px;padding-block:28px 48px}
+  .proj{grid-template-columns:1fr;gap:18px}
+  .more{grid-template-columns:1fr 1fr}
+  .skills{grid-template-columns:1fr 1fr}
+  .job{grid-template-columns:1fr;gap:6px}
+}
+@media (max-width:480px){
+  .facts{grid-template-columns:1fr}
+  .fact{padding:14px 0}
+  .fact+.fact{padding-left:0;border-left:0;border-top:1px solid var(--rule)}
+  .more{grid-template-columns:1fr}
+  .contact{padding:24px 20px}
+  .split{grid-template-columns:1fr}
+}
+</style>
+<style>
+.toprow{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.lang{font-family:var(--mono);font-size:12.5px;font-weight:600;text-decoration:none;border:1px solid var(--rule);background:var(--surface);border-radius:999px;padding:6px 12px}
+.lang:hover{border-color:var(--accent);color:var(--accent)}
+</style>
+<main class="wrap" lang="en">
+
+  <header class="hero">
+    <div class="toprow">
+      <span class="status"><i></i>Open to offers · remote or hybrid</span>
+      <a class="lang" href="../">Русская версия</a>
+    </div>
+    <h1 class="name">Nuriddin<span>Khudoiberdiev</span></h1>
+    <p class="lede">Senior web developer. I build the systems businesses run on: banking services, ERP for real estate developers, parking automation and online schools.</p>
+    <div class="meta">
+      <span><b>Now:</b> Business Capital</span>
+      <span><b>Based in:</b> Khujand, Tajikistan</span>
+    </div>
+    <div class="links">
+      <a class="btn primary" href="https://www.linkedin.com/in/nuriddin-khudoiberdiev-275b0a22b" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn" href="https://github.com/born-kh" target="_blank" rel="noopener">GitHub · born-kh ↗</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><b>8+ years</b><span>of commercial development, since 2017</span></div>
+      <div class="fact"><b>Web · Desktop · Mobile</b><span>Next.js, Electron, React Native</span></div>
+      <div class="fact"><b>4 industries</b><span>fintech, edtech, real estate, parking</span></div>
+    </div>
+  </header>
+
+  <section aria-labelledby="h-proj">
+    <div class="sh"><h2 id="h-proj">Projects</h2><p>On the right of each: how data moves through the system</p></div>
+
+    <article class="proj">
+      <div class="p-text">
+        <p class="domain">Edtech · escuela.pro</p>
+        <h3>Escuela: an online Spanish language school</h3>
+        <p>A platform where students take lessons with teachers, do homework and pay for courses. I built it from the MVP and led a group of three developers and a UI/UX designer. It runs on the web, on iOS and Android, and as a browser extension.</p>
+        <ul>
+          <li>Online whiteboard, chat and translator in lessons, with materials synced between teacher and student</li>
+          <li>Video calls on Voximplant and real-time synced video playback</li>
+          <li>Interactive exercises and tests with progress sync</li>
+          <li>Separate workspaces for students, teachers and managers</li>
+          <li>Stripe payments, accounting and teacher act exports</li>
+          <li>AI features on Gemini, course sync between platforms</li>
+          <li>Testing: Jest, Playwright e2e, Storybook and Loki visual tests</li>
+        </ul>
+        <div class="stack"><span class="tag">React</span><span class="tag">Redux-Saga</span><span class="tag">Firebase</span><span class="tag">Cloud Functions</span><span class="tag">Stripe</span><span class="tag">Voximplant</span><span class="tag">Gemini</span><span class="tag">Playwright</span></div>
+        <a class="plink" href="https://escuela.pro/" target="_blank" rel="noopener">escuela.pro ↗</a>
+      </div>
+      <div class="p-flow" aria-label="Escuela diagram">
+        <p class="flow-cap">Lesson flow</p>
+        <div class="flow">
+          <div class="split">
+            <div class="node"><b>Student</b><small>web · iOS · Android</small></div>
+            <div class="node"><b>Teacher</b><small>schedule, homework</small></div>
+          </div>
+          <div class="arr">booking, payment</div>
+          <div class="node hl"><b>Escuela platform</b><small>React + Firebase</small></div>
+          <div class="arr">call, exercises, review</div>
+          <div class="split">
+            <div class="node"><b>Video call</b><small>Voximplant</small></div>
+            <div class="node"><b>Accounting</b><small>acts, exports</small></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="p-text">
+        <p class="domain">Real estate · ERP</p>
+        <h3>ERP for real estate developers: apartments, installments, payments</h3>
+        <p>A system for a property developer covering apartment sales, contracts, installment schedules and payments. It comes with a super-admin panel for managing platform clients.</p>
+        <ul>
+          <li>Sales tracking, reports and charts</li>
+          <li>Contracts with a document editor, export to DOCX and PDF</li>
+          <li>Super-admin panel for managing companies on the platform</li>
+        </ul>
+        <div class="stack"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">TanStack Query</span><span class="tag">shadcn/ui</span><span class="tag">TipTap</span><span class="tag">Recharts</span><span class="tag">Tailwind 4</span></div>
+      </div>
+      <div class="p-flow" aria-label="ERP diagram">
+        <p class="flow-cap">Deal flow</p>
+        <div class="flow">
+          <div class="node"><b>Buyer</b><small>picks an apartment</small></div>
+          <div class="arr">booking</div>
+          <div class="node hl"><b>ERP: apartments</b><small>booking, contract</small></div>
+          <div class="arr">installment schedule</div>
+          <div class="split">
+            <div class="node"><b>Payments</b><small>on schedule</small></div>
+            <div class="node"><b>Reports</b><small>sales, debts</small></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="p-text">
+        <p class="domain">Parking · hardware + software</p>
+        <h3>Automated parking: server, cash desk and cameras</h3>
+        <p>The full cycle of a paid car park. Cameras log entry and exit, the server calculates the fee and controls the barrier, and the cashier takes payment in a dedicated app.</p>
+        <ul>
+          <li>Admin panel: tariffs, cash desks, cameras, number of spaces</li>
+          <li>Cashier app on Electron with a Windows installer</li>
+          <li>Cash desk keys live only in the main process and are encrypted by the OS</li>
+          <li>API types are generated from a contract, and an e2e test runs a full shift</li>
+          <li>Scheduled cleanup of camera photos</li>
+        </ul>
+        <div class="stack"><span class="tag">Next.js</span><span class="tag">Prisma</span><span class="tag">PostgreSQL</span><span class="tag">Electron</span><span class="tag">OpenAPI</span><span class="tag">Playwright</span></div>
+      </div>
+      <div class="p-flow" aria-label="Parking diagram">
+        <p class="flow-cap">A car's path</p>
+        <div class="flow">
+          <div class="node"><b>Entry camera</b><small>lane, IP, direction</small></div>
+          <div class="arr">event + photo</div>
+          <div class="node hl"><b>Parking Server</b><small>session, tariff, spaces</small></div>
+          <div class="arr">amount due</div>
+          <div class="split">
+            <div class="node"><b>Cash desk</b><small>Electron</small></div>
+            <div class="node"><b>Barrier</b><small>opened by server</small></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="p-text">
+        <p class="domain">Fintech · bank</p>
+        <h3>Bank website and payment page</h3>
+        <p>A public bank website with its own admin panel and live chat, plus a separate payment page that shoppers reach by a link from the merchant.</p>
+        <ul>
+          <li>Admin panel with a content editor, multiple languages, branch map</li>
+          <li>Site chat: messages go to operators in a Telegram group through a bot</li>
+          <li>The payment page activates the payment and shows details for the wallet</li>
+          <li>The secret API key stays on the server and never reaches the browser</li>
+          <li>Deployed in Docker behind nginx</li>
+        </ul>
+        <div class="stack"><span class="tag">Next.js</span><span class="tag">NextAuth</span><span class="tag">Prisma</span><span class="tag">i18next</span><span class="tag">Leaflet</span><span class="tag">Telegram Bot API</span><span class="tag">Vite</span><span class="tag">Docker</span></div>
+      </div>
+      <div class="p-flow" aria-label="Chat diagram">
+        <p class="flow-cap">Customer chat</p>
+        <div class="flow">
+          <div class="node"><b>Site visitor</b><small>chat widget</small></div>
+          <div class="arr">message → PostgreSQL</div>
+          <div class="node hl"><b>Support bot</b><small>Telegram</small></div>
+          <div class="arr">operator reply</div>
+          <div class="node"><b>Operator group</b><small>replies from Telegram</small></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="p-text">
+        <p class="domain">Desktop · enterprise software</p>
+        <h3>ABS Desktop</h3>
+        <p>A desktop app for a company's internal processes. It builds for macOS and Windows and also runs as a web version.</p>
+        <ul>
+          <li>Keycloak sign-in (SSO) with a custom login theme</li>
+          <li>Large virtualized tables, drag and drop</li>
+          <li>Export to PDF, Excel and DOCX, QR code generation</li>
+          <li>Forms validated with zod, formula-based calculated fields</li>
+        </ul>
+        <div class="stack"><span class="tag">Electron</span><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Keycloak</span><span class="tag">TanStack Table</span><span class="tag">Vitest</span></div>
+      </div>
+      <div class="p-flow" aria-label="ABS Desktop diagram">
+        <p class="flow-cap">One codebase</p>
+        <div class="flow">
+          <div class="node hl"><b>React + TypeScript</b><small>shared UI and logic</small></div>
+          <div class="arr">build</div>
+          <div class="split">
+            <div class="node"><b>macOS / Windows</b><small>Electron · dmg, nsis</small></div>
+            <div class="node"><b>Web version</b><small>Vite + own server</small></div>
+          </div>
+          <div class="arr">authorization</div>
+          <div class="node"><b>Keycloak SSO</b><small>roles and access</small></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="p-text">
+        <p class="domain">Communications · Nexus Technologies</p>
+        <h3>Tamos messenger and its admin panel</h3>
+        <p>A web messenger with real-time chat and voice calls, plus an admin panel for it. The admin panel was later moved into the messenger's desktop version.</p>
+        <ul>
+          <li>Messenger web client: real-time chat, voice calls</li>
+          <li>Admin panel: users, projects, analytics dashboards, call statistics, documents</li>
+          <li>Swift (Vapor) backend: migration from Vapor 3 to Vapor 4, document and admin modules</li>
+          <li>UI for testing the backend</li>
+        </ul>
+        <div class="stack"><span class="tag">Angular</span><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Redux</span><span class="tag">TypeScript</span><span class="tag">Swift · Vapor</span><span class="tag">PostgreSQL</span></div>
+      </div>
+      <div class="p-flow" aria-label="Messenger diagram">
+        <p class="flow-cap">Message and call</p>
+        <div class="flow">
+          <div class="split">
+            <div class="node"><b>Web client</b><small>Angular</small></div>
+            <div class="node"><b>Desktop</b><small>+ admin panel</small></div>
+          </div>
+          <div class="arr">chat, voice call</div>
+          <div class="node hl"><b>Backend</b><small>Swift · Vapor 4 · PostgreSQL</small></div>
+          <div class="arr">statistics, documents</div>
+          <div class="node"><b>Admin panel</b><small>React · Next.js</small></div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+
+  <section aria-labelledby="h-exp">
+    <div class="sh"><h2 id="h-exp">Experience</h2></div>
+    <div class="exp">
+      <div class="job">
+        <div class="when"><b>Feb 2026 — now</b>Khujand, on-site</div>
+        <div><h4>Senior Web Developer · <span class="co">Business Capital</span></h4><p>Building and maintaining the company's web products.</p></div>
+      </div>
+      <div class="job">
+        <div class="when"><b>Mar 2025 — Jan 2026</b>Contract</div>
+        <div><h4>Senior Web Developer · <span class="co">Self-employed</span></h4><p>End-to-end projects for clients: web, desktop and mobile apps.</p></div>
+      </div>
+      <div class="job">
+        <div class="when"><b>Jan 2023 — 2026</b>Remote</div>
+        <div><h4>Frontend Developer, team lead · <span class="co">Escuela</span></h4><p>Built the platform MVP, the online whiteboard and calls. Led a group of three developers (one senior, two middle) and a UI/UX designer.</p></div>
+      </div>
+      <div class="job">
+        <div class="when"><b>Jan 2019 — Jan 2025</b>Khujand</div>
+        <div><h4>Frontend Developer · <span class="co">Nexus Technologies</span></h4><p>The Tamos web messenger and its admin panel, then moved the admin panel into the messenger's desktop version. React, Redux, Angular, Next.js, TypeScript, Scrum.</p></div>
+      </div>
+      <div class="job">
+        <div class="when"><b>Nov 2017 — Jan 2019</b>Khujand</div>
+        <div><h4>Full-Stack Developer · <span class="co">Nexus Technologies</span></h4><p>Migrated the backend from Vapor 3 to Vapor 4, built document and admin management modules and a UI for testing the backend. Swift, JavaScript, Python, PostgreSQL.</p></div>
+      </div>
+      <div class="job">
+        <div class="when"><b>2013 — 2017</b>Education</div>
+        <div><h4>BA in Applied Programming</h4><p>Tajik State University of Law, Business and Politics, Khujand</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-skills">
+    <div class="sh"><h2 id="h-skills">Stack</h2></div>
+    <div class="skills">
+      <div><h4>Frontend</h4><ul><li>React, Next.js, Angular</li><li>TypeScript</li><li>Redux, TanStack Query</li><li>Tailwind, shadcn/ui, Material UI</li></ul></div>
+      <div><h4>Backend and data</h4><ul><li>Node.js, Next.js API</li><li>Swift (Vapor), Python</li><li>PostgreSQL, MySQL, Prisma</li><li>Firebase, Firestore</li><li>OpenAPI</li></ul></div>
+      <div><h4>Desktop and mobile</h4><ul><li>Electron</li><li>React Native, Expo</li><li>Swift</li></ul></div>
+      <div><h4>Quality and infra</h4><ul><li>Jest, Vitest</li><li>Playwright, Storybook</li><li>Docker, nginx</li><li>Keycloak, NextAuth</li></ul></div>
+    </div>
+  </section>
+
+  <section class="contact" aria-labelledby="h-contact">
+    <h2 id="h-contact">Need a system that holds up in production?</h2>
+    <p>Open to full-time roles, remote or hybrid, and to project work. Email me or message me on LinkedIn.</p>
+    <div class="mail"><span id="mail">nuriddin0495@gmail.com</span><button class="copy" id="copy" type="button">Copy</button></div>
+    <div class="links">
+      <a class="btn primary" href="https://www.linkedin.com/in/nuriddin-khudoiberdiev-275b0a22b" target="_blank" rel="noopener">Message on LinkedIn ↗</a>
+      <a class="btn" href="https://github.com/born-kh" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </section>
+
+  <p class="foot">Nuriddin Khudoiberdiev · Khujand · 2026</p>
+</main>
+<script>
+document.getElementById('copy').addEventListener('click',function(){
+  var b=this, t=document.getElementById('mail');
+  var sel=function(){ var r=document.createRange(); r.selectNodeContents(t); var s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='Selected, press ⌘C'; };
+  try{ navigator.clipboard.writeText(t.textContent).then(function(){ b.textContent='Copied'; },sel); }catch(e){ sel(); }
+});
+</script>
+</html>
